@@ -16,6 +16,8 @@ export class HrsCalculatorComponent implements OnInit {
 
   netWorkingHours: number | null = null;
   netWorkingMinutes: number | null = null;
+  otHours: number | null = null;
+  otMinutes: number | null = null;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}
@@ -26,22 +28,23 @@ export class HrsCalculatorComponent implements OnInit {
     const duration = moment.duration(endTime.diff(startTime));
     const hours = Math.floor(duration.asHours());
     const minutes = duration.asMinutes() % 60;
-    let inp = moment(
-      (hours == 0 ? '00' : hours < 10 ? '0' + hours : hours) +
-        ':' +
-        (minutes == 0 ? '00' : minutes < 10 ? '0' + minutes : minutes),
-      'hh:mm'
+    const overTime = duration.subtract(
+      this.timeForm.controls.workingHrs.value || 0,
+      'hours'
     );
-    const overTime = duration.subtract(9.5, 'hours');
-    console.log('overTime > hrs =>', overTime.get('hours'));
-    console.log('overTime > mins =>', overTime.get('minutes'));
 
     this.netWorkingHours = hours;
     this.netWorkingMinutes = minutes;
+    this.otHours = overTime.get('hours');
+    this.otMinutes = overTime.get('minutes');
   }
 
   reset() {
     this.timeForm.reset({ workingHrs: 9.5 });
     this.netWorkingHours = null;
+    this.netWorkingHours = null;
+    this.netWorkingMinutes = null;
+    this.otHours = null;
+    this.otMinutes = null;
   }
 }

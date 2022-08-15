@@ -26,12 +26,6 @@
                 <button
                     class="w-1/2 py-3 font-medium text-white bg-indigo-600 hover:opacity-60 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
                     [ngClass]="{'bg-red-500':timeForm.invalid}" (click)="getHours()" [disabled]="timeForm.invalid">
-                    <!-- <svg class="stroke-2 stroke-current text-white h-8 w-8 mr-2 flex-shrink-0" viewBox="0 0 24 24"
-                        *ngIf="timeForm.valid" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M0 0h24v24H0z" stroke="none" />
-                        <circle cx="12" cy="12" r="9" />
-                        <path d="M9 12l2 2 4-4" />
-                    </svg> -->
                     <span>Submit</span>
                 </button>
                 <button
@@ -42,13 +36,21 @@
             </div>
         </div>
     </form>
-    <div class="bg-green-100 rounded-md p-3 flex" *ngIf="netWorkingHours != null || netWorkingMinutes != null">
-        <div class="text-green-700">
-            <div class="font-bold text-xl">{{ netWorkingHours ? netWorkingHours == 1 ? netWorkingHours + ' Hour' :
+    <div class="bg-blue-100 rounded-md p-3 flex" *ngIf="netWorkingHours != null || netWorkingMinutes != null">
+        <div class="text-blue-700">
+            <div class="font-bold text-xl">Total Time : {{ netWorkingHours ? netWorkingHours == 1 ? netWorkingHours + '
+                Hour' :
                 netWorkingHours + ' Hours' : 0 + ' Hours' }}
                 {{ netWorkingMinutes != null ? netWorkingMinutes == 1 ? (netWorkingMinutes + ' Minute') :
                 (netWorkingMinutes + ' Minutes') : '' }}</div>
-            <!-- <div>^ OT Hours ^</div> -->
+        </div>
+    </div>
+    <div class="bg-green-100 rounded-md p-3 flex mt-2" *ngIf="otHours != null || otMinutes != null">
+        <div class="text-green-700">
+            <div class="font-bold text-xl">Over Time : {{ otHours ? otHours == 1 ? otHours + ' Hour' :
+                otHours + ' Hours' : 0 + ' Hours' }}
+                {{ otMinutes != null ? otMinutes == 1 ? (otMinutes + ' Minute') :
+                (otMinutes + ' Minutes') : '' }}</div>
         </div>
     </div>
 </div>
