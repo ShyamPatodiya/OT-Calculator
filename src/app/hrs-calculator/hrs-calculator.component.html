@@ -1,0 +1,54 @@
+<div class="max-w-lg mx-auto mt-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
+    <h1 class="text-4xl font-medium">OT Calculator</h1>
+    <p class="text-slate-500">Calculate your Over Time Working Hours</p>
+    <form [formGroup]="timeForm" class="my-10">
+        <div class="flex flex-col space-y-5">
+            <label for="pInTime">
+                <p class="font-medium text-slate-700 pb-2">Enter Punch-In Time</p>
+                <input id="pInTime" name="pInTime" type="time" formControlName="pInTime"
+                    class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
+                    placeholder="(Ex. 09:32 AM)">
+            </label>
+            <label for="pOutTime">
+                <p class="font-medium text-slate-700 pb-2">Enter Punch-Out Time</p>
+                <input id="pOutTime" name="pOutTime" type="time" formControlName="pOutTime"
+                    class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
+                    placeholder="(Ex. 09:32 PM)">
+            </label>
+            <label for="workingHrs">
+                <p class="font-medium text-slate-700 pb-2">Enter Working Hours</p>
+                <input id="workingHrs" name="workingHrs" type="text" formControlName="workingHrs"
+                    class="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
+                    placeholder="Default will be set to 9.5 hours"
+                    (focusout)="!timeForm.controls.workingHrs.value ? timeForm.controls.workingHrs.setValue(9.5) : ''">
+            </label>
+            <div class="row-auto">
+                <button
+                    class="w-1/2 py-3 font-medium text-white bg-indigo-600 hover:opacity-60 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+                    [ngClass]="{'bg-red-500':timeForm.invalid}" (click)="getHours()" [disabled]="timeForm.invalid">
+                    <!-- <svg class="stroke-2 stroke-current text-white h-8 w-8 mr-2 flex-shrink-0" viewBox="0 0 24 24"
+                        *ngIf="timeForm.valid" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M0 0h24v24H0z" stroke="none" />
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M9 12l2 2 4-4" />
+                    </svg> -->
+                    <span>Submit</span>
+                </button>
+                <button
+                    class="w-1/2 py-3 font-medium text-white bg-gray-500 hover:opacity-50 rounded-lg border-gray-600 hover:shadow inline-flex space-x-2 items-center justify-center"
+                    (click)="reset()">
+                    <span>Reset Form</span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="bg-green-100 rounded-md p-3 flex" *ngIf="netWorkingHours != null || netWorkingMinutes != null">
+        <div class="text-green-700">
+            <div class="font-bold text-xl">{{ netWorkingHours ? netWorkingHours == 1 ? netWorkingHours + ' Hour' :
+                netWorkingHours + ' Hours' : 0 + ' Hours' }}
+                {{ netWorkingMinutes != null ? netWorkingMinutes == 1 ? (netWorkingMinutes + ' Minute') :
+                (netWorkingMinutes + ' Minutes') : '' }}</div>
+            <!-- <div>^ OT Hours ^</div> -->
+        </div>
+    </div>
+</div>
