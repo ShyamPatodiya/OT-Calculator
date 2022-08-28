@@ -18,6 +18,7 @@ export class HrsCalculatorComponent implements OnInit {
   netWorkingMinutes: number | null = null;
   otHours: number | null = null;
   otMinutes: number | null = null;
+  decimalOTHours: number | string = 0;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}
@@ -37,6 +38,9 @@ export class HrsCalculatorComponent implements OnInit {
     this.netWorkingMinutes = minutes;
     this.otHours = overTime.get('hours');
     this.otMinutes = overTime.get('minutes');
+    this.decimalOTHours = moment
+      .duration(this.otHours + ':' + this.otMinutes)
+      .asHours();
   }
 
   reset() {
@@ -46,5 +50,6 @@ export class HrsCalculatorComponent implements OnInit {
     this.netWorkingMinutes = null;
     this.otHours = null;
     this.otMinutes = null;
+    this.decimalOTHours = 0;
   }
 }
