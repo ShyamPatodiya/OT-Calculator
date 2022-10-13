@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { TimeLogsDetailsService } from '../services/time-logs-details.service';
 
 @Component({
   selector: 'app-hrs-calculator',
@@ -19,7 +20,10 @@ export class HrsCalculatorComponent implements OnInit {
   otHours: number | null = null;
   otMinutes: number | null = null;
   decimalOTHours: number | string = 0;
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private timeLogsService: TimeLogsDetailsService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -51,5 +55,18 @@ export class HrsCalculatorComponent implements OnInit {
     this.otHours = null;
     this.otMinutes = null;
     this.decimalOTHours = 0;
+  }
+
+  submit() {
+    this.getHours();
+    
+    let timeLogObj = {
+      inTime: this.timeForm.value.pInTime,
+      outTime: this.timeForm.value.pOutTime,
+      otHrs: this.otHours,
+      otMins: this.otMinutes,
+      otHrsInDecimal: this.decimalOTHours,
+    };
+    console.log('timeLogObj =>', timeLogObj);
   }
 }
