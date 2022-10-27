@@ -59,7 +59,7 @@ export class HrsCalculatorComponent implements OnInit {
 
   submit() {
     this.getHours();
-    
+
     let timeLogObj = {
       inTime: this.timeForm.value.pInTime,
       outTime: this.timeForm.value.pOutTime,
@@ -68,5 +68,6 @@ export class HrsCalculatorComponent implements OnInit {
       otHrsInDecimal: this.decimalOTHours,
     };
     console.log('timeLogObj =>', timeLogObj);
+    this.timeLogsService.post(timeLogObj);
   }
 }

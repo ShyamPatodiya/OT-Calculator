@@ -11,5 +11,11 @@ export class TimeLogsTableComponent implements OnInit {
 
   constructor(private timeLogsService: TimeLogsDetailsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getData();
+  }
+
+  getData() {
+    this.timeLogsData = this.timeLogsService.postData;
+  }
 }
